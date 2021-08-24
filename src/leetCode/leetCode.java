@@ -1,9 +1,6 @@
 package leetCode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @description:
@@ -158,6 +155,61 @@ public class leetCode {
         return index >= firstBadVersion;
     }
 
+    /**
+     * 题型：双指针
+     * <p>
+     * 有序数组的平方：给你一个按 非递减顺序 排序的整数数组 nums，
+     * 返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
+     *
+     * @Param nums
+     * @Return: int[]
+     */
+    public static int[] sortedSquares(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        for (int i = 0, j = n - 1, index = n - 1; i <= j; ) {
+            if (nums[i] * nums[i] > nums[j] * nums[j]) {
+                res[index] = nums[i] * nums[i];
+                i++;
+            } else {
+                res[index] = nums[j] * nums[j];
+                j--;
+            }
+            index--;
+        }
+        return res;
+    }
+
+    /**
+     *  旋转数组：给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+     *
+     * @Param nums
+     * @Param k
+     * @Return: void
+     */
+    public static void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;
+        int count = gcd(n, k);
+        for (int start = 0; start < count; start++) {
+            int current = start;
+            int pre = nums[current];
+            do {
+                int next = (current + k) % n;
+                int temp = nums[next];
+                nums[next] = pre;
+                pre = temp;
+                current = next;
+            } while (start != current);
+
+        }
+
+    }
+
+    public static int gcd(int x, int y) {
+        return y > 0 ? gcd(y, x % y) : x;
+    }
+
     public static void main(String[] args) {
 //        int[] nums = {3, 2, 4};
 //        int target = 6;
@@ -174,7 +226,13 @@ public class leetCode {
 
         //  二分查找      ------------------------------------
 //        System.out.println(search(new int[]{2, 5}, 6));
-        System.out.println(firstBadVersion(5, 4));
+//        System.out.println(firstBadVersion(5, 4));
 
+        //  双指针      ------------------------------------
+//        System.out.println(Arrays.toString(sortedSquares(new int[]{-4, -1, 0, 3, 10})));
+        int[] nums = {1,2,3,4,5,6,7};
+        rotate(nums, 3);
+        System.out.println(Arrays.toString(nums));
     }
+
 }
