@@ -143,7 +143,7 @@ public class leetCode {
     }
 
     public static int getFirstBadVersion(int left, int right, int firstBadVersion) {
-        if (left == right && !isBadVersion(left, firstBadVersion)) {
+        if (left == right) {
             return left;
         }
         int center = left + (right - left) / 2;
@@ -155,7 +155,7 @@ public class leetCode {
     }
 
     public static boolean isBadVersion(int index, int firstBadVersion) {
-        return index <= firstBadVersion;
+        return index >= firstBadVersion;
     }
 
     public static void main(String[] args) {
